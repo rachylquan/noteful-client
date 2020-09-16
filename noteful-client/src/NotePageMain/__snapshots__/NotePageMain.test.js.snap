@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotePageMain component renders a .NotePageMain by default 1`] = `
+<section
+  className="NotePageMain"
+>
+  <Note
+    onDeleteNote={[Function]}
+  />
+  <div
+    className="NotePageMain__content"
+  >
+    <p
+      key="0"
+    />
+  </div>
+</section>
+`;
