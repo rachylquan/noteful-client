@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ApiContext from '../ApiContext';
 import config from '../config';
@@ -42,8 +42,13 @@ export default class Note extends React.Component {
     return (
       <div className="Note">
         <h2 className="Note__title">
-          <Link to={`/note/${id}`}>{name}</Link>
+          <Link to={`/notes/${id}`}>{name}</Link>
         </h2>
+        <Link to={`/edit/note/${id}`}>
+          <button className="Note__edit" type="button">
+            edit
+          </button>
+        </Link>{' '}
         <button
           className="Note__delete"
           type="button"
@@ -53,7 +58,11 @@ export default class Note extends React.Component {
         </button>
         <div className="Note__dates">
           <div className="Note__dates-modified">
-            Modified <span className="Date">{modified}</span>
+            Modified{' '}
+            <span className="Date">
+              {modified}
+              {/* {format(new Date({ modified }), 'MM/dd/yyyy')} */}
+            </span>
           </div>
         </div>
       </div>

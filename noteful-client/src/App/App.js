@@ -5,6 +5,8 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
+import EditNote from '../EditNote/EditNote';
+import EditFolder from '../EditFolder/EditFolder';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 import ApiContext from '../ApiContext';
@@ -55,13 +57,29 @@ class App extends Component {
     });
   };
 
+  handleUpdateNote = (updatedNote) => {
+    this.setState({
+      notes: this.state.notes.map((note) =>
+        note.id !== updatedNote.id ? note : updatedNote
+      ),
+    });
+  };
+
+  handleUpdateFolder = (updatedFolder) => {
+    this.setState({
+      folders: this.state.folders.map((folder) =>
+        folder.id !== updatedFolder.id ? folder : updatedFolder
+      ),
+    });
+  };
+
   renderNavRoutes() {
     return (
       <>
-        {['/', '/folder/:folderId'].map((path) => (
+        {['/', '/folders/:folderId'].map((path) => (
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
-        <Route path="/note/:noteId" component={NotePageNav} />
+        <Route path="/notes/:noteId" component={NotePageNav} />
         <Route path="/add-folder" component={NotePageNav} />
         <Route path="/add-note" component={NotePageNav} />
       </>
@@ -71,12 +89,14 @@ class App extends Component {
   renderMainRoutes() {
     return (
       <>
-        {['/', '/folder/:folderId'].map((path) => (
+        {['/', '/folders/:folderId'].map((path) => (
           <Route exact key={path} path={path} component={NoteListMain} />
         ))}
-        <Route path="/note/:noteId" component={NotePageMain} />
+        <Route path="/notes/:noteId" component={NotePageMain} />
         <Route path="/add-folder" component={AddFolder} />
         <Route path="/add-note" component={AddNote} />
+        <Route path="/edit/note/:noteId" component={EditNote} />
+        <Route path="/edit/folder/:folderId" component={EditFolder} />
       </>
     );
   }
@@ -88,6 +108,8 @@ class App extends Component {
       addFolder: this.handleAddFolder,
       addNote: this.handleAddNote,
       deleteNote: this.handleDeleteNote,
+      updateNote: this.handleUpdateNote,
+      updateFolder: this.handleUpdateFolder,
     };
     return (
       <ApiContext.Provider value={value}>
