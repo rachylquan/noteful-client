@@ -8,9 +8,20 @@ exports[`Note component renders a .Note by default 1`] = `
     className="Note__title"
   >
     <Link
-      to="/note/undefined"
+      to="/notes/undefined"
     />
   </h2>
+  <Link
+    to="/edit/note/undefined"
+  >
+    <button
+      className="Note__edit"
+      type="button"
+    >
+      edit
+    </button>
+  </Link>
+   
   <button
     className="Note__delete"
     onClick={[Function]}
@@ -43,7 +54,8 @@ exports[`Note component renders a .Note by default 1`] = `
     <div
       className="Note__dates-modified"
     >
-      Modified 
+      Modified
+       
       <span
         className="Date"
       />
@@ -60,11 +72,22 @@ exports[`Note component renders the Note given props 1`] = `
     className="Note__title"
   >
     <Link
-      to="/note/a"
+      to="/notes/a"
     >
       test-class-name
     </Link>
   </h2>
+  <Link
+    to="/edit/note/a"
+  >
+    <button
+      className="Note__edit"
+      type="button"
+    >
+      edit
+    </button>
+  </Link>
+   
   <button
     className="Note__delete"
     onClick={[Function]}
@@ -97,7 +120,8 @@ exports[`Note component renders the Note given props 1`] = `
     <div
       className="Note__dates-modified"
     >
-      Modified 
+      Modified
+       
       <span
         className="Date"
       >
