@@ -12,12 +12,12 @@ export default class AddNote extends Component {
   };
   static contextType = ApiContext;
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const newNote = {
-      name: e.target['note-name'].value,
-      content: e.target['note-content'].value,
-      folder_id: e.target['note-folder-id'].value,
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const note = {
+      name: event.target['note-name'].value,
+      content: event.target['note-content'].value,
+      folder_id: event.target['note-folder-id'].value,
       modified: new Date(),
     };
     fetch(`${config.API_ENDPOINT}/notes`, {
@@ -25,10 +25,10 @@ export default class AddNote extends Component {
       headers: {
         'content-type': 'application/json',
       },
-      body: JSON.stringify(newNote),
+      body: JSON.stringify(note),
     })
       .then((res) => {
-        if (!res.ok) return res.json().then((e) => Promise.reject(e));
+        if (!res.ok) return res.json().then((event) => Promise.reject(event));
         return res.json();
       })
       .then((note) => {

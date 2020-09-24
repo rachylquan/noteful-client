@@ -12,10 +12,10 @@ export default class AddFolder extends Component {
   };
   static contextType = ApiContext;
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = (event) => {
+    event.preventDefault();
     const folder = {
-      name: e.target['folder-name'].value,
+      name: event.target['folder-name'].value,
     };
     fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
@@ -25,7 +25,7 @@ export default class AddFolder extends Component {
       body: JSON.stringify(folder),
     })
       .then((res) => {
-        if (!res.ok) return res.json().then((e) => Promise.reject(e));
+        if (!res.ok) return res.json().then((event) => Promise.reject(event));
         return res.json();
       })
       .then((folder) => {
