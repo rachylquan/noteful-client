@@ -4,6 +4,8 @@ import NotefulForm from '../NotefulForm/NotefulForm';
 import ApiContext from '../ApiContext';
 import config from '../config';
 
+const Required = () => <span className="AddBookmark__required">*</span>;
+
 export default class editNote extends Component {
   static propTypes = {
     match: PropTypes.shape({
@@ -22,6 +24,7 @@ export default class editNote extends Component {
     name: '',
     content: '',
     folder_id: '',
+    modified: '',
   };
 
   // get note to be updated
@@ -41,6 +44,7 @@ export default class editNote extends Component {
           name: responseData.name,
           content: responseData.content,
           folder_id: responseData.folder_id,
+          modified: responseData.modified,
         });
       })
       .catch((error) => {
@@ -64,9 +68,11 @@ export default class editNote extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
+    this.setState({ modfied: new Date() });
+
     const { noteId } = this.props.match.params;
-    const { id, name, content, folder_id } = this.state;
-    const newNote = { id, name, content, folder_id };
+    const { id, name, content, folder_id, modified } = this.state;
+    const newNote = { id, name, content, folder_id, modified };
 
     fetch(config.API_ENDPOINT + `/notes/${noteId}`, {
       method: 'PATCH',
@@ -114,7 +120,10 @@ export default class editNote extends Component {
           </div>
           <input type="hidden" name="id" />
           <div className="field">
-            <label htmlFor="name">Name </label>
+            <label htmlFor="name">
+              Name
+              <Required />
+            </label>
             <input
               type="text"
               id="name"
@@ -126,7 +135,7 @@ export default class editNote extends Component {
             />
           </div>
           <div className="field">
-            <label htmlFor="content">Content </label>
+            <label htmlFor="content">Content</label>
             <textarea
               id="content"
               name="content"
@@ -137,7 +146,10 @@ export default class editNote extends Component {
             />
           </div>
           <div className="field">
-            <label htmlFor="folder_id">Folder</label>
+            <label htmlFor="folder_id">
+              Folder
+              <Required />
+            </label>
             <select
               id="folder_id"
               name="folder_id"

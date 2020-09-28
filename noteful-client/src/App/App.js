@@ -17,6 +17,7 @@ class App extends Component {
   state = {
     notes: [],
     folders: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -25,17 +26,20 @@ class App extends Component {
       fetch(`${config.API_ENDPOINT}/folders`),
     ])
       .then(([notesRes, foldersRes]) => {
-        if (!notesRes.ok) return notesRes.json().then((e) => Promise.reject(e));
-        if (!foldersRes.ok)
-          return foldersRes.json().then((e) => Promise.reject(e));
-
+        if (!notesRes.ok) {
+          return notesRes.json().then((error) => Promise.reject(error));
+        }
+        if (!foldersRes.ok) {
+          return foldersRes.json().then((error) => Promise.reject(error));
+        }
         return Promise.all([notesRes.json(), foldersRes.json()]);
       })
       .then(([notes, folders]) => {
-        this.setState({ notes, folders });
+        this.setState({ notes, folders, error: null });
       })
       .catch((error) => {
         console.error({ error });
+        this.setState({ error });
       });
   }
 

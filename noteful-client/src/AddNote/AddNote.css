@@ -5,3 +5,8 @@
 .AddNote h2 {
   margin-left: 16px;
 }
+
+.AddNote__error p {
+  color: #a51414;
+  margin-bottom: 5px;
+}
